@@ -6,11 +6,10 @@ export default StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: calcHeight(50),
-    right: calcHeight(50),
+    right: calcHeight(30),
     height: calcHeight(50),
     width: calcHeight(50),
     borderRadius: calcHeight(50),
-    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.amber_dark_300,

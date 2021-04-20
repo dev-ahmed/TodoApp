@@ -1,6 +1,6 @@
 import React from 'react';
-import {ViewStyle} from 'react-native';
-import {Button} from '../../atoms/Button';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Icon} from '../../atoms/Icon';
 import styles from './styles';
 
 interface Props {
@@ -9,11 +9,8 @@ interface Props {
 
 export const FloatButton: React.FC<Props> = React.memo(({onPress}) => {
   return (
-    <Button
-      onPress={onPress}
-      label="+"
-      labelStyle={styles.label}
-      style={styles.container}
-    />
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Icon name="plus" />
+    </TouchableOpacity>
   );
 });
