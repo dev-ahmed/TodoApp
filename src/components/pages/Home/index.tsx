@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {ROUTES} from '../../../constants/routes';
-import {IRootState, persistor} from '../../../store';
+import {IRootState} from '../../../store';
 import {Container} from '../../atoms/Container';
 import {FloatButton} from '../../molecules/FloatButton';
 import {SearchBar} from '../../organisms/SearchBar';
@@ -24,10 +24,6 @@ export const Home: React.FC = React.memo(({}) => {
   const openAddTodoScreen = () => {
     navigation.navigate(ROUTES.NEW_TODO);
   };
-
-  console.log('====================================');
-  console.log(todosList);
-  console.log('====================================');
 
   return (
     <Container style={styles.container}>

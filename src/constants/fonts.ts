@@ -14,11 +14,11 @@ const SpaceMono = StyleSheet.create({
 
 const headlines = StyleSheet.create({
   title: {
-    fontSize: calcFont(26),
+    fontSize: calcFont(16),
     ...SpaceMono.bold,
   },
   subtitle: {
-    fontSize: calcFont(18),
+    fontSize: calcFont(14),
     ...SpaceMono.bold,
   },
   description: {

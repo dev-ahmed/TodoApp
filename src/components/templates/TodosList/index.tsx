@@ -1,6 +1,7 @@
 import React from 'react';
-import {FlatList, ListRenderItem, Text, ViewStyle} from 'react-native';
+import {FlatList, ListRenderItem, ViewStyle} from 'react-native';
 import {Todo} from '../../../interfaces/Todo';
+import {TodoItem} from '../../organisms/TodoItem';
 
 interface Props {
   data: Todo[];
@@ -9,9 +10,7 @@ interface Props {
 
 export const TodosList: React.FC<Props> = React.memo(({data, style}) => {
   const renderItem: ListRenderItem<Todo> = ({item}) => {
-    const {title} = item;
-
-    return <Text> {title} </Text>;
+    return <TodoItem item={item} />;
   };
 
   return (

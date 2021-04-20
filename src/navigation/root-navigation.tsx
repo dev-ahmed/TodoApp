@@ -2,11 +2,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {NewTodo} from '../components/pages/NewTodo';
 import {ROUTES} from '../constants/routes';
+import {Todo} from '../interfaces/Todo';
 import {Tabs} from './tab-navigator';
 
 export type RootStackParamList = {
   Tabs: undefined;
-  NewTodo: undefined;
+  NewTodo: Todo;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

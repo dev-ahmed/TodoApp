@@ -14,10 +14,4 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.amber_dark_300,
   },
-  label: {
-    fontSize: calcFont(40),
-    color: colors.white,
-    alignSelf: 'center',
-    textAlign: 'center',
-  },
 });

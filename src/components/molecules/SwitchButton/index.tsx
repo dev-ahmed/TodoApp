@@ -20,7 +20,7 @@ export const SwitchButton: React.FC<Props> = React.memo(
 
     return (
       <Switch
-        trackColor={{false: colors.primary, true: AppColors.light_green}}
+        trackColor={{false: colors.primary, true: AppColors.amber_dark_300}}
         thumbColor={isEnabled ? colors.primary : colors.text}
         ios_backgroundColor={colors.border}
         onValueChange={_toggleSwitch}

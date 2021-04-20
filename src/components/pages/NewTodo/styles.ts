@@ -1,11 +1,14 @@
 import {StyleSheet} from 'react-native';
+import {metrics} from '../../../constants/metrics';
 import {calcHeight, calcWidth} from '../../../utils/normalize';
 
 export default StyleSheet.create({
   container: {},
-  done: {
-    textAlign: 'right',
-    alignSelf: 'flex-end',
+  actionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: metrics.v_spacing_xl,
   },
   title: {
     paddingVertical: calcHeight(10),
