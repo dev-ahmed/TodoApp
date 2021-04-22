@@ -7,13 +7,14 @@ import {useDispatch} from 'react-redux';
 import {colors} from '../../../constants/colors';
 import {Todo} from '../../../interfaces/Todo';
 import {RootStackParamList} from '../../../navigation/root-navigation';
-import {addTodo, deleteTodo} from '../../../store/todos/actions';
+import {addTodo, deleteTodo, editTodo} from '../../../store/todos/actions';
 import {calcFont} from '../../../utils/normalize';
 import {uid} from '../../../utils/string-helpers';
 import {Button} from '../../atoms/Button';
 import {Container} from '../../atoms/Container';
 import {Icon} from '../../atoms/Icon';
 import {Input} from '../../atoms/Input';
+import {DatePicker} from '../../molecules/DatePicker';
 import styles from './styles';
 
 export const NewTodo: React.FC = React.memo(() => {
@@ -22,19 +23,31 @@ export const NewTodo: React.FC = React.memo(() => {
   const {params} = useRoute<RouteProp<RootStackParamList, 'NewTodo'>>();
 
   const initialValues: Todo = {
-    id: params.id || uid(),
-    title: params.title || '',
-    description: params.description || '',
-    date: params.date || '',
-    time: params.time || '',
-    isDone: params.isDone || false,
+    id: params?.id || '',
+    title: params?.title || '',
+    description: params?.description || '',
+    datetime: params?.datetime ? new Date(params?.datetime) : new Date(),
+    isDone: params?.isDone || false,
   };
 
-  const onAdd = async (values: Todo) => {
+  const onSubmit = async (values: Todo) => {
+    if (_.isEmpty(values.id)) {
+      return onAdd(values);
+    }
+    onEdit(values);
+  };
+
+  const onAdd = (values: Todo) => {
     if (!(_.isEmpty(values.title) || _.isEmpty(values.description))) {
-      await dispatch(addTodo(values));
+      values.id = uid();
+      dispatch(addTodo(values));
       navigation.goBack();
     }
+  };
+
+  const onEdit = (values: Todo) => {
+    dispatch(editTodo(values));
+    navigation.goBack();
   };
 
   const onDelete = async () => {
@@ -47,7 +60,7 @@ export const NewTodo: React.FC = React.memo(() => {
   return (
     <Container style={styles.container}>
       <>
-        <Formik initialValues={initialValues} onSubmit={onAdd}>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {({handleChange, handleSubmit, values, setFieldValue}) => (
             <>
               <View style={styles.actionsContainer}>
@@ -59,6 +72,12 @@ export const NewTodo: React.FC = React.memo(() => {
                 />
                 <Button onPress={handleSubmit} label="Done" />
               </View>
+              <DatePicker
+                date={values.datetime}
+                onDateChange={datetime => {
+                  setFieldValue('datetime', datetime);
+                }}
+              />
               <Input
                 onChange={handleChange('title')}
                 value={values.title}

@@ -9,6 +9,7 @@ export default StyleSheet.create({
     marginTop: calcHeight(10),
   },
   todoDetailsContainer: {
+    justifyContent: 'space-between',
     marginStart: metrics.v_spacing_l,
   },
   title: {

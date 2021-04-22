@@ -9,12 +9,12 @@ import {Text} from '../../atoms/Text';
 import {SwitchButton} from '../../molecules/SwitchButton';
 import {SettingsItem} from '../../organisms/SettingsItem';
 import styles from './styles';
+import RNRestart from 'react-native-restart';
 
 export const Settings: React.FC = React.memo(({}) => {
   const dispatch = useDispatch();
   const {theme} = useSelector((state: IRootState) => ({
     theme: state.settingsReducer.theme,
-    language: state.settingsReducer.language,
   }));
 
   const _toggleSwitchDarkMode = async (isDarkMode: boolean) => {
@@ -24,8 +24,11 @@ export const Settings: React.FC = React.memo(({}) => {
     await dispatch(changeTheme('light'));
   };
 
-  const switchLanguage = () => {
-    persistor.purge();
+  const switchLanguage = async () => {
+    await persistor.purge();
+    setTimeout(() => {
+      RNRestart.Restart();
+    }, 300);
   };
 
   return (
