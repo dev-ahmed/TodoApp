@@ -3,4 +3,5 @@ export enum ROUTES {
   HOME = 'Home',
   SETTINGS = 'Settings',
   NEW_TODO = 'NewTodo',
+  CALENDAR_VIEW = 'CalendarView',
 }

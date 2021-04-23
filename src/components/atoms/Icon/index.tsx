@@ -1,3 +1,4 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {ViewStyle} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,13 +15,9 @@ interface Props {
 }
 
 export const Icon: React.FC<Props> = React.memo(
-  ({
-    name,
-    style,
-    size = calcFont(15),
-    color = colors.grey_primary,
-    onPress,
-  }) => {
+  ({name, style, size = calcFont(15), color, onPress}) => {
+    const {colors} = useTheme();
+    color = colors.text;
     return (
       <MaterialIcon
         name={name}

@@ -12,4 +12,8 @@ export default StyleSheet.create({
     marginBottom: metrics.v_spacing_l,
     borderRadius: calcHeight(15),
   },
+  settingsIcon: {
+    alignSelf: 'flex-end',
+    marginBottom: metrics.v_spacing_l,
+  },
 });
