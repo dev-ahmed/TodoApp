@@ -28,7 +28,7 @@ export const NewTodo: React.FC = React.memo(() => {
     description: params?.description || '',
     datetime: params?.datetime ? new Date(params?.datetime) : new Date(),
     isDone: params?.isDone || false,
-    lastUpdatedAt: params.lastUpdatedAt,
+    lastUpdatedAt: params?.lastUpdatedAt,
   };
 
   const onSubmit = async (values: Todo) => {
