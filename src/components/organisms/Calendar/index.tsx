@@ -2,11 +2,17 @@ import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Calendar as RNCalendar} from 'react-native-calendars';
 import {useSelector} from 'react-redux';
+import {useCallbackOne} from 'use-memo-one';
 import {colors as appColors} from '../../../constants/colors';
 import {IRootState} from '../../../store';
+import {getCurrentDate} from '../../../utils/date-helper';
 import styles from './styles';
 
-export const Calendar: React.FC = React.memo(() => {
+interface Props {
+  markedDates: any;
+}
+
+export const Calendar: React.FC<Props> = React.memo(({markedDates}) => {
   const {colors} = useTheme();
   const {theme} = useSelector((state: IRootState) => ({
     theme: state.settingsReducer.theme,
@@ -34,18 +40,21 @@ export const Calendar: React.FC = React.memo(() => {
   // i made this workaround to get the ride of this library issue
   // https://github.com/wix/react-native-calendars/issues/322#issuecomment-362260632
 
-  useEffect(() => {
+  const setTheme = useCallbackOne(() => {
     setCalendarTheme({key: theme, calendarTheme: calendarThemeProperties});
   }, [theme]);
+
+  useEffect(() => {
+    setTheme();
+  }, [theme, setTheme]);
 
   return (
     <RNCalendar
       style={styles.container}
       key={key}
       theme={calendarTheme}
-      current={'2012-03-01'}
-      minDate={'2012-05-10'}
-      maxDate={'2012-05-30'}
+      current={getCurrentDate()}
+      markedDates={markedDates}
     />
   );
 });

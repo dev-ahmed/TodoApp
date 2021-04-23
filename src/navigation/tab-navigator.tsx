@@ -1,10 +1,9 @@
-import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ROUTES} from '../constants/routes';
-import {translate} from '../utils/i18n-helper';
-import {Home} from '../components/pages/Home';
+import React from 'react';
 import {CalendarView} from '../components/pages/CalendarView';
+import {Home} from '../components/pages/Home';
 import {colors} from '../constants/colors';
+import {ROUTES} from '../constants/routes';
 
 type ParamList = {
   Home: undefined;
@@ -17,12 +16,12 @@ export const Tabs = () => {
   return (
     <Tab.Navigator tabBarOptions={{activeTintColor: colors.amber_dark_300}}>
       <Tab.Screen
-        options={{tabBarLabel: translate('Home')}}
+        options={{tabBarLabel: 'Home'}}
         name={ROUTES.HOME}
         component={Home}
       />
       <Tab.Screen
-        options={{tabBarLabel: translate('Calendar')}}
+        options={{tabBarLabel: 'Calendar'}}
         name={ROUTES.CALENDAR_VIEW}
         component={CalendarView}
       />

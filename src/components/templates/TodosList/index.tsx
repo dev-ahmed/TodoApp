@@ -6,19 +6,24 @@ import {TodoItem} from '../../organisms/TodoItem';
 interface Props {
   data: Todo[];
   style?: ViewStyle;
+  headerComponent?: React.FC;
+  showCheckBox?: boolean;
 }
 
-export const TodosList: React.FC<Props> = React.memo(({data, style}) => {
-  const renderItem: ListRenderItem<Todo> = ({item}) => {
-    return <TodoItem item={item} />;
-  };
+export const TodosList: React.FC<Props> = React.memo(
+  ({data, style, headerComponent, showCheckBox = true}) => {
+    const renderItem: ListRenderItem<Todo> = ({item}) => {
+      return <TodoItem showCheckBox={showCheckBox} item={item} />;
+    };
 
-  return (
-    <FlatList
-      keyExtractor={item => item.id}
-      renderItem={renderItem}
-      data={data}
-      style={style}
-    />
-  );
-});
+    return (
+      <FlatList
+        ListHeaderComponent={headerComponent}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        data={data}
+        style={style}
+      />
+    );
+  },
+);
