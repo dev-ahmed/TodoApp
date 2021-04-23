@@ -1,15 +1,18 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import {useCallbackOne} from 'use-memo-one';
 import {ROUTES} from '../../../constants/routes';
 import {IRootState} from '../../../store';
 import {calcFont} from '../../../utils/normalize';
+import {searchTodos} from '../../../utils/todos-helper';
 import {Container} from '../../atoms/Container';
 import {Icon} from '../../atoms/Icon';
 import {FloatButton} from '../../molecules/FloatButton';
 import {SearchBar} from '../../organisms/SearchBar';
 import {TodosList} from '../../templates/TodosList';
 import styles from './styles';
+import _ from 'lodash';
 
 export const Home: React.FC = React.memo(({}) => {
   const navigation = useNavigation();
@@ -19,9 +22,24 @@ export const Home: React.FC = React.memo(({}) => {
     todosList: state.todosReducer.list,
   }));
 
-  const onSearch = (text: string) => {
-    setSearchKey(text);
-  };
+  const [todos, setTodos] = useState(todosList);
+
+  const initTodos = useCallbackOne(() => {
+    setTodos(todosList);
+  }, [todosList]);
+
+  useEffect(() => {
+    initTodos();
+  }, [initTodos]);
+
+  const onSearch = useCallbackOne(
+    _.debounce((text: string) => {
+      setSearchKey(text);
+      const newTodos = searchTodos(todosList, text);
+      setTodos(newTodos);
+    }, 500),
+    [],
+  );
 
   const openAddTodoScreen = () => {
     navigation.navigate(ROUTES.NEW_TODO);
@@ -47,7 +65,7 @@ export const Home: React.FC = React.memo(({}) => {
           style={styles.search}
           placeholder={'Search'}
         />
-        <TodosList emptyMessage="Start add your todos here" data={todosList} />
+        <TodosList emptyMessage="Start add your todos here" data={todos} />
         <FloatButton onPress={openAddTodoScreen} />
       </>
     </Container>

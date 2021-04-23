@@ -1,8 +1,8 @@
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
-import {View, ViewStyle} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {TextInputProps, View, ViewStyle} from 'react-native';
+import {useCallbackOne} from 'use-memo-one';
 import {Input} from '../../atoms/Input';
-import styles from './styles';
 
 interface Props {
   placeholder: string;
@@ -11,16 +11,28 @@ interface Props {
   style?: ViewStyle;
 }
 
-export const SearchBar: React.FC<Props> = React.memo(
-  ({searchKey, placeholder, onSearch, style}) => {
+export const SearchBar: React.FC<Props & TextInputProps> = React.memo(
+  ({placeholder, onSearch, style, searchKey}) => {
     const {colors} = useTheme();
+    const [key, setKey] = useState(searchKey);
+
+    const initSearchKey = useCallbackOne(() => {
+      setKey(searchKey);
+    }, [searchKey]);
+
+    useEffect(() => {
+      initSearchKey();
+    }, [initSearchKey]);
 
     return (
       <View style={[{backgroundColor: colors.card}, style]}>
         <Input
-          value={searchKey}
+          value={key}
           placeholder={placeholder}
-          onChange={onSearch}
+          onChange={text => {
+            setKey(text);
+            onSearch(text);
+          }}
         />
       </View>
     );

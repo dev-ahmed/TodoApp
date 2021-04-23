@@ -38,7 +38,7 @@ export const NewTodo: React.FC = React.memo(() => {
   };
 
   const onAdd = (values: Todo) => {
-    if (!(_.isEmpty(values.title) || _.isEmpty(values.description))) {
+    if (!_.isEmpty(values.title)) {
       values.id = uid();
       dispatch(addTodo(values));
       navigation.goBack();
