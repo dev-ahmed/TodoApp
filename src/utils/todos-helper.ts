@@ -7,7 +7,6 @@ export const searchTodos = (todos: Todo[], searchKey: string) => {
       return item.title.includes(searchKey);
     });
   }
-
   return todos;
 };
 

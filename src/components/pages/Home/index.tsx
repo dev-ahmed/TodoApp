@@ -14,6 +14,9 @@ import {TodosList} from '../../templates/TodosList';
 import styles from './styles';
 import _ from 'lodash';
 
+const EMPTY_TODOS_SEARCH = 'No todos matches your search';
+const NO_TODOS_YET = 'Start add your todos here';
+
 export const Home: React.FC = React.memo(({}) => {
   const navigation = useNavigation();
   const [searchKey, setSearchKey] = useState('');
@@ -49,6 +52,11 @@ export const Home: React.FC = React.memo(({}) => {
     navigation.navigate(ROUTES.SETTINGS);
   };
 
+  const emptyMessage =
+    _.isEmpty(todos) && _.isEmpty(todosList)
+      ? NO_TODOS_YET
+      : EMPTY_TODOS_SEARCH;
+
   return (
     <Container style={styles.container}>
       <>
@@ -65,7 +73,7 @@ export const Home: React.FC = React.memo(({}) => {
           style={styles.search}
           placeholder={'Search'}
         />
-        <TodosList emptyMessage="Start add your todos here" data={todos} />
+        <TodosList emptyMessage={emptyMessage} data={todos} />
         <FloatButton onPress={openAddTodoScreen} />
       </>
     </Container>
