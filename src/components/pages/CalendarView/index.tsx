@@ -19,7 +19,8 @@ export const CalendarView: React.FC = React.memo(() => {
   const [markedDates, setMarkedDates] = useState({});
 
   const initialCalendar = useCallbackOne(() => {
-    setTodos(todosList);
+    const selectedTodos = filterByDate(todosList, Date.now());
+    setTodos(selectedTodos);
     const dates = getCalendarMarkedDates(todosList, colors.light_blue);
     setMarkedDates(dates);
   }, [todosList]);
