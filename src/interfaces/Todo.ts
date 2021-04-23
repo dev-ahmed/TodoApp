@@ -4,4 +4,5 @@ export interface Todo {
   description?: string;
   datetime: Date;
   isDone: boolean;
+  lastUpdatedAt: number;
 }

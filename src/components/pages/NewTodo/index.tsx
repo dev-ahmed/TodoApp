@@ -28,6 +28,7 @@ export const NewTodo: React.FC = React.memo(() => {
     description: params?.description || '',
     datetime: params?.datetime ? new Date(params?.datetime) : new Date(),
     isDone: params?.isDone || false,
+    lastUpdatedAt: params.lastUpdatedAt,
   };
 
   const onSubmit = async (values: Todo) => {
@@ -45,8 +46,21 @@ export const NewTodo: React.FC = React.memo(() => {
     }
   };
 
+  const updateIfDirty = (values: Todo) => {
+    if (
+      values.title !== params.title ||
+      values.description !== params.description ||
+      values.datetime !== params.datetime
+    ) {
+      values.lastUpdatedAt = Date.now();
+      return values;
+    }
+    return values;
+  };
+
   const onEdit = (values: Todo) => {
-    dispatch(editTodo(values));
+    const newValues = updateIfDirty(values);
+    dispatch(editTodo(newValues));
     navigation.goBack();
   };
 

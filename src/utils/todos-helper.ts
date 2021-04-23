@@ -10,3 +10,7 @@ export const searchTodos = (todos: Todo[], searchKey: string) => {
 
   return todos;
 };
+
+export const sortByDate = (todos: Todo[]) => {
+  return todos.sort((a, b) => b.lastUpdatedAt - a.lastUpdatedAt);
+};

@@ -1,5 +1,6 @@
 import {IRootState} from '..';
 import {Todo} from '../../interfaces/Todo';
+import {sortByDate} from '../../utils/todos-helper';
 import {
   AddTodoDispatch,
   ADD_TODO,
@@ -16,7 +17,7 @@ export const addTodo = (todo: Todo) => (
   getState: () => IRootState,
 ) => {
   const oldTodos = getState().todosReducer.list;
-  const newTodos = [...oldTodos, todo];
+  const newTodos = [todo, ...oldTodos];
   dispatch({type: ADD_TODO, list: newTodos});
 };
 
@@ -31,7 +32,8 @@ export const editTodo = (todo: Todo) => (
     }
     return item;
   });
-  dispatch({type: EDIT_TODO, list: newTodos});
+  const sortedTodos = sortByDate(newTodos);
+  dispatch({type: EDIT_TODO, list: sortedTodos});
 };
 
 export const deleteTodo = (id: string) => (
