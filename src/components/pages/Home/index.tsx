@@ -47,7 +47,7 @@ export const Home: React.FC = React.memo(({}) => {
           style={styles.search}
           placeholder={'Search'}
         />
-        <TodosList data={todosList} />
+        <TodosList emptyMessage="Start add your todos here" data={todosList} />
         <FloatButton onPress={openAddTodoScreen} />
       </>
     </Container>
