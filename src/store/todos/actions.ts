@@ -56,6 +56,6 @@ export const markAsDone = (id: string) => (
     }
     return item;
   });
-
-  dispatch({type: MARK_AS_DONE, list: newTodos});
+  const sortedTodos = newTodos.sort(x => (!x.isDone ? -1 : 1));
+  dispatch({type: MARK_AS_DONE, list: sortedTodos});
 };
